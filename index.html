@@ -1,0 +1,2084 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>PakKhatta</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+    <!-- ==================================================
+         SIDEBAR
+    ================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="logo-area">
+
+            <div class="logo">
+                <img
+                    src="Logo.png"
+                    alt="PakKhatta Logo"
+                    class="logo-icon"
+                >
+                PakKhatta
+            </div>
+
+        </div>
+
+
+        <div class="menu">
+
+            <div class="menu-title">
+                Main
+            </div>
+
+
+            <div
+                class="menu-item active"
+                data-page="dashboard"
+                onclick="navigateTo('dashboard')"
+            >
+                <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                </svg>
+                <span>Dashboard</span>
+            </div>
+
+
+            <div
+                class="menu-item"
+                data-page="parties"
+                onclick="navigateTo('parties')"
+            >
+                <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                </svg>
+                <span>Parties</span>
+            </div>
+
+
+            <div
+                class="menu-item"
+                data-page="items"
+                onclick="navigateTo('items')"
+            >
+                <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 2H4c-1 0-2 .9-2 2v3.01c0 .72.43 1.34 1 1.69V20c0 1.1 1.1 2 2 2h14c.9 0 2-.9 2-2V8.7c.57-.35 1-.97 1-1.69V4c0-1.1-1-2-2-2zm-5 12H9v-2h6v2zm5-7H4V4h16v3z"/>
+                </svg>
+                <span>Items</span>
+            </div>
+
+
+            <div class="menu-title">
+                Transactions
+            </div>
+
+
+            <div
+                class="menu-item"
+                data-page="sales"
+                onclick="navigateTo('sales')"
+            >
+                <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42l1.1-2h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+                </svg>
+                <span>Sales</span>
+            </div>
+
+
+            <div
+                class="menu-item"
+                data-page="purchase"
+                onclick="navigateTo('purchase')"
+            >
+                <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20.54 5.23l-1.39-1.68C18.88 3.21 18.47 3 18 3H6c-.47 0-.88.21-1.16.55L3.46 5.23C3.17 5.57 3 6.02 3 6.5V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6.5c0-.48-.17-.93-.46-1.27zM12 17.5L6.5 12H10v-2h4v2h3.5L12 17.5zM5.12 5l.81-1h12l.94 1H5.12z"/>
+                </svg>
+                <span>Purchase</span>
+            </div>
+
+
+            <div
+                class="menu-item"
+                data-page="expenses"
+                onclick="navigateTo('expenses')"
+            >
+                <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+                </svg>
+                <span>Expenses</span>
+            </div>
+
+
+            <div class="menu-title">
+                Accounts
+            </div>
+
+
+            <div
+                class="menu-item"
+                data-page="cashbank"
+                onclick="navigateTo('cashbank')"
+            >
+                <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 10h3v7H4v-7zm6.5 0h3v7h-3v-7zM2 19h20v3H2v-3zM17 10h3v7h-3v-7zM12 1L2 6v2h20V6L12 1z"/>
+                </svg>
+                <span>Cash &amp; Bank</span>
+            </div>
+
+
+            <div
+                class="menu-item"
+                data-page="reports"
+                onclick="navigateTo('reports')"
+            >
+                <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M5 9.2h3V19H5V9.2zM10.6 5h2.8v14h-2.8V5zm5.6 8H19v6h-2.8v-6z"/>
+                </svg>
+                <span>Reports</span>
+            </div>
+
+
+            <div
+                class="menu-item"
+                data-page="settings"
+                onclick="navigateTo('settings')"
+            >
+                <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+                </svg>
+                <span>Settings</span>
+            </div>
+
+        </div>
+
+        <div class="sidebar-footer">
+
+            <div class="sidebar-footer-title">Project By Solo Tech</div>
+
+            <a class="sidebar-footer-link" href="tel:03710636105">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                </svg>
+                <span>0371-0636105</span>
+            </a>
+
+            <a class="sidebar-footer-link" href="mailto:PakKhata229170@gmail.com">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+                <span>PakKhata229170@gmail.com</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- ==================================================
+         MAIN
+    ================================================== -->
+
+    <main class="main">
+
+
+       <!-- ==================================================
+             TOP BAR (Strictly Aligned & Perfectly Sized)
+        ================================================== -->
+        <header class="topbar" style="display: flex; align-items: center; justify-content: space-between; padding: 0 20px; min-height: 70px;">
+
+            <!-- Company Switcher (Made Compact & Smart) -->
+            <div
+                class="company-switcher"
+                onclick="showCompanySwitcher()"
+                title="Click to change your business name"
+                style="padding: 8px 16px; margin: 0; min-width: auto; max-width: max-content; cursor: pointer; display: flex; flex-direction: column; justify-content: center;"
+            >
+                <div class="company-name" style="font-size: 16px; font-weight: bold; line-height: 1.2;">
+                    <span id="topbarCompanyName">My Business</span>
+                </div>
+                <div class="company-subtitle" style="font-size: 11px; opacity: 0.8; margin-top: 2px;">
+                    Change Company
+                </div>
+            </div>
+
+            <!-- Right Side Controls (Eye Icon + Buttons) -->
+            <div style="display: flex; align-items: center; gap: 12px; flex-wrap: nowrap;">
+                
+                <!-- Eye Icon (Perfect Square, perfectly aligned with buttons) -->
+                <button
+                    id="dashboardBlurToggle"
+                    type="button"
+                    title="Toggle privacy blur"
+                    style="height: 42px; width: 46px; background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 8px; cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 0; margin: 0;"
+                >
+                    <span id="dashboardBlurIcon">👁</span>
+                </button>
+
+                <!-- Action Buttons (Locked height at 42px to match the eye button perfectly) -->
+                <button
+                    class="btn btn-sale"
+                    type="button"
+                    onclick="createSale()"
+                    style="height: 42px; padding: 0 16px; border-radius: 8px; font-weight: bold; display: flex; align-items: center; justify-content: center; white-space: nowrap; margin: 0;"
+                >
+                    + Add Sale
+                </button>
+
+                <button
+                    class="btn btn-purchase"
+                    type="button"
+                    onclick="navigateTo('purchase')"
+                    style="height: 42px; padding: 0 16px; border-radius: 8px; font-weight: bold; display: flex; align-items: center; justify-content: center; white-space: nowrap; margin: 0;"
+                >
+                    + Add Purchase
+                </button>
+
+                <button
+                    class="btn btn-more"
+                    type="button"
+                    onclick="startSaleReturnFromDashboard()"
+                    style="height: 42px; padding: 0 16px; border-radius: 8px; font-weight: bold; display: flex; align-items: center; justify-content: center; white-space: nowrap; margin: 0;"
+                >
+                    Sale Return
+                </button>
+
+                <button
+                    class="btn btn-purchase"
+                    type="button"
+                    onclick="showPurchaseReturn()"
+                    style="height: 42px; padding: 0 16px; border-radius: 8px; font-weight: bold; display: flex; align-items: center; justify-content: center; white-space: nowrap; margin: 0;"
+                >
+                    Purchase Return
+                </button>
+            </div>
+
+        </header>
+
+
+
+        <!-- ==================================================
+             CONTENT
+        ================================================== -->
+
+        <section
+            class="content"
+            id="mainContent"
+        >
+
+
+            <!-- ==================================================
+                 DASHBOARD HEADER
+            ================================================== -->
+
+            <div class="page-title">
+
+                <div>
+
+                    <h1>
+                        Dashboard
+                    </h1>
+
+                    <p>
+                        Here's what's happening with your business today.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ==================================================
+                 SUMMARY CARDS
+            ================================================== -->
+
+            <div class="summary-grid">
+
+
+                <div class="card">
+
+                    <div class="card-label">
+                        Today's Sales
+                    </div>
+
+                    <div
+                        class="card-value"
+                        id="dashboardSales"
+                    >
+                        Rs. 0
+                    </div>
+
+                    <div
+                        class="card-small"
+                        id="dashboardSalesSmall"
+                    >
+                        No sales today
+                    </div>
+
+                </div>
+
+
+
+                <div class="card">
+
+                    <div class="card-label">
+                        Today's Returns
+                    </div>
+
+                    <div
+                        class="card-value"
+                        id="dashboardReturns"
+                        style="color:#d97706;"
+                    >
+                        Rs. 0
+                    </div>
+
+                    <div
+                        class="card-small"
+                        id="dashboardReturnsSmall"
+                    >
+                        No returns today
+                    </div>
+
+                </div>
+
+
+
+                <div class="card">
+
+                    <div class="card-label">
+                        Today's Purchase
+                    </div>
+
+                    <div
+                        class="card-value"
+                        id="dashboardPurchase"
+                    >
+                        Rs. 0
+                    </div>
+
+                    <div
+                        class="card-small"
+                        id="dashboardPurchaseSmall"
+                    >
+                        No purchases today
+                    </div>
+
+                </div>
+
+
+
+                <div class="card">
+
+                    <div class="card-label">
+                        Today's Bank Transfer
+                    </div>
+
+                    <div
+                        class="card-value"
+                        id="dashboardBankTransfer"
+                    >
+                        Rs. 0
+                    </div>
+
+                    <div
+                        class="card-small"
+                        id="dashboardBankTransferSmall"
+                    >
+                        No bank transfers today
+                    </div>
+
+                </div>
+
+
+
+                <div class="card">
+
+                    <div class="card-label">
+                        You'll Receive
+                    </div>
+
+                    <div
+                        class="card-value"
+                        id="dashboardReceive"
+                    >
+                        Rs. 0
+                    </div>
+
+                    <div class="card-small">
+                        Customer receivables
+                    </div>
+
+                </div>
+
+
+
+                <div class="card">
+
+                    <div class="card-label">
+                        You'll Pay
+                    </div>
+
+                    <div
+                        class="card-value"
+                        id="dashboardPay"
+                    >
+                        Rs. 0
+                    </div>
+
+                    <div class="card-small">
+                        Supplier payables
+                    </div>
+
+                </div>
+
+
+
+                <div class="card">
+
+                    <div class="card-label">
+                        Stock Value
+                    </div>
+
+                    <div
+                        class="card-value"
+                        id="dashboardStock"
+                    >
+                        Rs. 0
+                    </div>
+
+                    <div class="card-small">
+                        Current inventory value
+                    </div>
+
+                </div>
+
+
+
+                <div class="card">
+
+                    <div class="card-label">
+                        Cash In & Out
+                    </div>
+
+                    <div
+                        class="card-value"
+                        id="dashboardCash"
+                    >
+                        Rs. 0
+                    </div>
+
+                    <div class="card-small">
+                        Available cash
+                    </div>
+
+                </div>
+
+
+
+                <div class="card">
+
+                    <div class="card-label">
+                        Bank Balance
+                    </div>
+
+                    <div
+                        class="card-value"
+                        id="dashboardBank"
+                    >
+                        Rs. 0
+                    </div>
+
+                    <div class="card-small">
+                        Total bank balance
+                    </div>
+
+                </div>
+
+
+
+                <div class="card">
+
+                    <div class="card-label">
+                        Expenses
+                    </div>
+
+                    <div
+                        class="card-value"
+                        id="dashboardExpenses"
+                    >
+                        Rs. 0
+                    </div>
+
+                    <div class="card-small">
+                        Current month
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ==================================================
+                 LOWER DASHBOARD
+            ================================================== -->
+
+            <div class="dashboard-grid">
+
+
+                <!-- ==================================================
+                     RECENT TRANSACTIONS
+                ================================================== -->
+
+                <div class="panel">
+
+
+                    <div class="panel-header">
+
+                        <h3>
+                            Recent Transactions
+                        </h3>
+
+                        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end;">
+                            <input id="dashboardTransactionDate" type="date" aria-label="Search transactions by date" title="Search transactions by date" style="height:34px;padding:0 8px;border:1px solid #cbd5e1;border-radius:7px;">
+                            <span
+                            class="panel-link"
+                            onclick="navigateTo('sales')"
+                            style="cursor:pointer;"
+                        >
+                            View All
+                            </span>
+                        </div>
+
+                    </div>
+
+
+
+                    <table class="table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Date
+                                </th>
+
+                                <th>
+                                    Type
+                                </th>
+
+                                <th>
+                                    Party / Name
+                                </th>
+
+                                <th>
+                                    Amount
+                                </th>
+
+                                <th>
+                                    Detail
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="recentTransactions">
+
+                            <tr>
+
+                                <td colspan="5">
+
+                                    <div class="empty-state">
+                                        No transactions available
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+
+                </div>
+
+
+
+                <!-- ==================================================
+                     LOW STOCK
+                ================================================== -->
+
+                <div class="panel">
+
+
+                    <div class="panel-header">
+
+                        <h3>
+                            Low Stock
+                        </h3>
+
+                        <span
+                            class="panel-link"
+                            onclick="navigateTo('items')"
+                            style="cursor:pointer;"
+                        >
+                            View Items
+                        </span>
+
+                    </div>
+
+
+
+                    <div id="lowStockContainer">
+
+                        <div class="stock-item">
+
+                            <span class="stock-name">
+                                No low stock items
+                            </span>
+
+                            <span class="stock-count">
+                                —
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+
+<!-- ==================================================
+     RENDERER
+================================================== -->
+
+<!-- Web mode API shim (no effect inside the Electron app) -->
+<script src="web-shim.js"></script>
+
+<!-- SheetJS: Excel (.xlsx/.xls) import ke liye -->
+<script src="xlsx.full.min.js"></script>
+
+<!-- jsPDF: Daily Summary PDF export ke liye -->
+<script src="jspdf.umd.min.js"></script>
+
+<script src="render.js"></script>
+
+
+
+<script>
+
+    // ==================================================
+    // SAFE HTML ESCAPE
+    // ==================================================
+
+    function escapeHTML(value) {
+
+        return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+
+    // ==================================================
+    // NAVIGATION
+    // ==================================================
+
+    function setActiveMenu(page) {
+
+        document
+            .querySelectorAll(".menu-item")
+            .forEach(item => {
+
+                item.classList.remove("active");
+
+            });
+
+
+        const activeItem =
+            document.querySelector(
+                `.menu-item[data-page="${page}"]`
+            );
+
+
+        if (activeItem) {
+
+            activeItem.classList.add("active");
+
+        }
+
+    }
+
+
+
+    function navigateTo(page) {
+
+        // Auth guard: unauthorized page direct navigation se
+        // open na ho sake (render.js ke permission map se)
+        if (
+            typeof window.pakkhattaCanAccessPage === "function" &&
+            !window.pakkhattaCanAccessPage(page)
+        ) {
+
+            console.warn(
+                "Navigation blocked by permissions:", page
+            );
+
+            return;
+
+        }
+
+        // Clean stale overlays and pending searches so a previous action
+        // cannot keep capturing input events on the next page.
+        try {
+            if (typeof window.clearTransientUi === "function") {
+                window.clearTransientUi();
+            } else {
+                document.body.querySelectorAll(".modal-overlay").forEach(node => node.remove());
+            }
+        } catch (error) {
+            console.warn("Overlay cleanup warning:", error);
+        }
+
+        if (typeof window.clearGlobalSearchTimer === "function") {
+            window.clearGlobalSearchTimer();
+        }
+
+        setActiveMenu(page);
+
+
+        switch (page) {
+
+            case "dashboard":
+
+                return showDashboard();
+
+                break;
+
+
+            case "parties":
+
+                return showParties();
+
+                break;
+
+
+            case "items":
+
+                return showItems();
+
+                break;
+
+
+            case "sales":
+
+                return showSales();
+
+                break;
+
+
+            case "purchase":
+
+               return showPurchase();
+
+                break;
+
+
+            case "expenses":
+
+                return showExpensesComingSoon();
+
+                break;
+
+
+            case "cashbank":
+
+                return showCashBankComingSoon();
+
+                break;
+
+
+            case "reports":
+
+                return showReportsComingSoon();
+
+                break;
+
+
+            case "predictive":
+
+                return showPredictiveAnalytics();
+
+                break;
+
+
+            case "settings":
+
+                return showSettingsComingSoon();
+
+                break;
+
+
+            default:
+
+                return showDashboard();
+
+        }
+
+    }
+
+
+
+    // ==================================================
+    // DASHBOARD REFRESH
+    // ==================================================
+
+    async function refreshDashboard() {
+
+        try {
+
+            if (
+                !window.electronAPI ||
+                typeof window.electronAPI.getDashboardData !== "function"
+            ) {
+
+                console.error(
+                    "electronAPI.getDashboardData is not available."
+                );
+
+                return;
+
+            }
+
+
+            const data =
+                await window.electronAPI.getDashboardData();
+
+
+            if (!data) {
+
+                console.warn(
+                    "Dashboard returned no data."
+                );
+
+                return;
+
+            }
+
+
+            const money = value => {
+
+                const number =
+                    Number(value || 0);
+
+
+                return "Rs. " +
+                    number.toLocaleString(
+                        "en-PK",
+                        {
+                            maximumFractionDigits: 2
+                        }
+                    );
+
+            };
+
+
+            // --------------------------------------------------
+            // SALES
+            // --------------------------------------------------
+
+            const sales =
+                document.getElementById(
+                    "dashboardSales"
+                );
+
+
+            if (sales) {
+
+                sales.textContent =
+                    money(Math.max(0, Number(data.todaySalesNet ?? data.todaySales ?? 0)));
+
+            }
+
+
+            const salesSmall =
+                document.getElementById(
+                    "dashboardSalesSmall"
+                );
+
+
+            if (salesSmall) {
+
+                const gross =
+                    Number((data.todaySalesGross ?? data.todaySales) || 0);
+
+                const rets =
+                    Number(data.todayReturns || 0);
+
+                const net =
+                    Number(data.todaySalesNet ?? gross - rets);
+
+
+                if (net < 0) {
+
+                    salesSmall.textContent =
+                        "Sale " + money(gross) +
+                        " \u2212 Return " + money(rets);
+
+                } else {
+
+                    salesSmall.textContent = "Today Sales";
+
+                }
+
+            }
+
+
+
+            // --------------------------------------------------
+            // PURCHASE
+            // --------------------------------------------------
+
+            const purchase =
+                document.getElementById(
+                    "dashboardPurchase"
+                );
+
+
+            if (purchase) {
+
+                purchase.textContent =
+                    money(data.todayPurchase);
+
+            }
+
+
+            const purchaseSmall =
+                document.getElementById(
+                    "dashboardPurchaseSmall"
+                );
+
+
+            if (purchaseSmall) {
+
+                const purchaseValue =
+                    Number(
+                        data.todayPurchase || 0
+                    );
+
+
+                purchaseSmall.textContent =
+                    purchaseValue > 0
+                        ? "Purchases recorded today"
+                        : "No purchases today";
+
+            }
+
+
+
+            // --------------------------------------------------
+            // BANK TRANSFER
+            // --------------------------------------------------
+
+            const bankTransfer =
+                document.getElementById(
+                    "dashboardBankTransfer"
+                );
+
+
+            if (bankTransfer) {
+
+                bankTransfer.textContent =
+                    Number(data.todayBankTransferCount || data.todayBankTransfer || 0).toLocaleString();
+
+            }
+
+
+            const bankTransferSmall =
+                document.getElementById(
+                    "dashboardBankTransferSmall"
+                );
+
+
+            if (bankTransferSmall) {
+
+                const transferValue =
+                    Number(
+                        data.todayBankTransferCount || data.todayBankTransfer || 0
+                    );
+
+
+                bankTransferSmall.textContent =
+                    transferValue > 0
+                        ? "Bank transfers recorded today"
+                        : "No bank transfers today";
+
+            }
+
+
+
+            // --------------------------------------------------
+            // RECEIVABLES
+            // --------------------------------------------------
+
+            const receive =
+                document.getElementById(
+                    "dashboardReceive"
+                );
+
+
+            if (receive) {
+
+                receive.textContent =
+                    money(data.receivables);
+
+            }
+
+
+
+            // --------------------------------------------------
+            // PAYABLES
+            // --------------------------------------------------
+
+            const pay =
+                document.getElementById(
+                    "dashboardPay"
+                );
+
+
+            if (pay) {
+
+                pay.textContent =
+                    money(data.payables);
+
+            }
+
+
+
+            // --------------------------------------------------
+            // STOCK
+            // --------------------------------------------------
+
+            const stock =
+                document.getElementById(
+                    "dashboardStock"
+                );
+
+
+            if (stock) {
+
+                stock.textContent =
+                    money(data.stockValue);
+
+            }
+
+
+
+            // --------------------------------------------------
+            // CASH
+            // --------------------------------------------------
+
+            const cash =
+                document.getElementById(
+                    "dashboardCash"
+                );
+
+
+            if (cash) {
+
+                cash.textContent =
+                    money(data.cash);
+
+            }
+
+
+
+            // --------------------------------------------------
+            // BANK
+            // --------------------------------------------------
+
+            const bank =
+                document.getElementById(
+                    "dashboardBank"
+                );
+
+
+            if (bank) {
+
+                bank.textContent =
+                    money(data.bank);
+
+            }
+
+
+
+            // --------------------------------------------------
+            // EXPENSES
+            // --------------------------------------------------
+
+            const expenses =
+                document.getElementById(
+                    "dashboardExpenses"
+                );
+
+
+            if (expenses) {
+
+                expenses.textContent =
+                    money(data.expenses);
+
+            }
+
+
+
+            // --------------------------------------------------
+            // RECENT TRANSACTIONS
+            // --------------------------------------------------
+
+            renderRecentTransactions(
+                data.recentTransactions
+            );
+
+
+
+            // --------------------------------------------------
+            // LOW STOCK
+            // --------------------------------------------------
+
+            renderLowStock(
+                data.lowStock
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Dashboard refresh error:",
+                error
+            );
+
+        }
+
+    }
+
+
+
+    // ==================================================
+    // RECENT TRANSACTIONS
+    // ==================================================
+
+    function renderRecentTransactions(
+        transactions
+    ) {
+
+        const container =
+            document.getElementById(
+                "recentTransactions"
+            );
+
+
+        if (!container) {
+
+            return;
+
+        }
+
+
+        if (
+            !Array.isArray(transactions) ||
+            transactions.length === 0
+        ) {
+
+            container.innerHTML = `
+
+                <tr>
+
+                    <td colspan="4">
+
+                        <div class="empty-state">
+                            No transactions available
+                        </div>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+
+        }
+
+
+        container.innerHTML =
+            transactions.map(transaction => {
+
+                const date =
+                    transaction.date
+                        ? new Date(
+                            transaction.date
+                        ).toLocaleDateString(
+                            "en-PK"
+                        )
+                        : "—";
+
+
+                const type =
+                    transaction.type ||
+                    "Sale";
+
+
+                const party =
+                    transaction.party ||
+                    "Cash Customer";
+
+
+                const amount =
+                    Number(
+                        transaction.amount || 0
+                    ).toLocaleString(
+                        "en-PK",
+                        {
+                            maximumFractionDigits: 2
+                        }
+                    );
+
+
+                return `
+
+                    <tr>
+
+                        <td>
+                            ${escapeHTML(date)}
+                        </td>
+
+                        <td>
+                            ${escapeHTML(type)}
+                        </td>
+
+                        <td>
+                            <b>${escapeHTML(party)}</b>
+                            ${transaction.ref_no ? `
+                                <br><span style="font-size:11px; color:#94a3b8;">
+                                    ${escapeHTML(transaction.ref_no)}
+                                </span>
+                            ` : ""}
+                        </td>
+
+                        <td>
+                            Rs. ${amount}
+                        </td>
+
+                        <td>
+                            ${
+                                Number(transaction.ref_id)
+                                    ? `<button class="btn btn-sale"
+                                            style="padding:4px 10px; font-size:11px;"
+                                            onclick="openTransactionDetail(
+                                                '${escapeHTML(type)}',
+                                                ${Number(transaction.ref_id)})">
+                                            🔍 See Detail
+                                        </button>`
+                                    : "-"
+                            }
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }).join("");
+
+    }
+
+
+
+    // ==================================================
+    // LOW STOCK
+    // ==================================================
+
+    function renderLowStock(items) {
+
+        const container =
+            document.getElementById(
+                "lowStockContainer"
+            );
+
+
+        if (!container) {
+
+            return;
+
+        }
+
+
+        if (
+            !Array.isArray(items) ||
+            items.length === 0
+        ) {
+
+            container.innerHTML = `
+
+                <div class="stock-item">
+
+                    <span class="stock-name">
+                        No low stock items
+                    </span>
+
+                    <span class="stock-count">
+                        —
+                    </span>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        container.innerHTML =
+            items.map(item => {
+
+                const name =
+                    item.name ||
+                    "Unnamed Item";
+
+
+                const stock =
+                    Number(
+                        item.stock || 0
+                    );
+
+
+                const unit =
+                    item.unit ||
+                    "Pieces";
+
+                const minimumStock =
+                    Number(item.low_stock_limit) ||
+                    0;
+
+
+                return `
+
+                    <div class="stock-item">
+
+                        <span class="stock-name">
+                            ${escapeHTML(
+                                item.name ||
+                                item.item_name ||
+                                item.itemName ||
+                                name
+                            )}
+                        </span>
+
+                        <span class="stock-count">
+                            ${stock.toLocaleString()}
+                            ${escapeHTML(unit)} left
+                            (minimum ${minimumStock.toLocaleString()})
+                        </span>
+
+                    </div>
+
+                `;
+
+            }).join("");
+
+    }
+
+
+
+    // ==================================================
+    // INITIAL DASHBOARD LOAD
+    // ==================================================
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        () => {
+
+            // Initial load ko navigation ke baad wale dashboard renderer ke saath sync rakhein.
+            if (typeof showDashboard === "function") {
+                showDashboard();
+            } else {
+                refreshDashboard();
+            }
+
+        }
+    );
+
+// ======================================================
+// FLOATING CHATBOT ENGINE
+// ======================================================
+
+function toggleChatBot() {
+    console.log("Chat button clicked");
+    var win = document.getElementById("chatBotWindow");
+    if (!win) { console.error("chatBotWindow not found"); return; }
+    if (win.style.display === "flex") {
+        win.style.display = "none";
+        console.log("Chat window closed");
+    } else {
+        win.style.display = "flex";
+        var inp = document.getElementById("chatBotInput");
+        if (inp) inp.focus();
+        console.log("Chat window opened");
+    }
+}
+
+function sendChatMessage() {
+    var input = document.getElementById("chatBotInput");
+    if (!input) return;
+    var text = input.value.trim();
+    if (!text) return;
+    input.value = "";
+    addChatMessage(text, "user");
+    processChatQuery(text).then(function(response) {
+        addChatMessage(response, "bot");
+    }).catch(function(err) {
+        console.error("Chatbot error:", err);
+        addChatMessage("I am still syncing the latest data. Please try again.", "bot");
+    });
+}
+
+function addChatMessage(text, sender) {
+    var container = document.getElementById("chatBotMessages");
+    if (!container) return;
+    var msg = document.createElement("div");
+    msg.style.cssText = "padding:10px 14px; border-radius:12px; font-size:13px; max-width:85%; line-height:1.5; word-wrap:break-word; font-weight:normal;" + (sender === "user" ? "background:#6366f1; color:#fff; align-self:flex-end; border-radius:12px 12px 4px 12px;" : "background:#e0e7ff; color:#3730a3; align-self:flex-start; border-radius:12px 12px 12px 4px;");
+    msg.textContent = text;
+    container.appendChild(msg);
+    container.scrollTop = container.scrollHeight;
+}
+
+function safeArr(val) { return Array.isArray(val) ? val : []; }
+function safeNum(val) { var n = Number(val); return isNaN(n) ? 0 : n; }
+function fmtMoney(val) { return "Rs. " + safeNum(val).toLocaleString("en-IN", { maximumFractionDigits: 2 }); }
+
+// ======================================================
+// CONTEXT MEMORY (remembers last query for follow-ups)
+// ======================================================
+var lastContext = { intent: null, data: [], type: null };
+
+async function processChatQuery(query) {
+    var q = query.toLowerCase().trim();
+
+    try {
+        // Fetch latest data from all APIs
+        var results = await Promise.allSettled([
+            apiReady("getItems") ? window.electronAPI.getItems() : [],
+            apiReady("getSales") ? window.electronAPI.getSales() : [],
+            apiReady("getPurchases") ? window.electronAPI.getPurchases() : [],
+            apiReady("getExpenses") ? window.electronAPI.getExpenses() : [],
+            apiReady("getParties") ? window.electronAPI.getParties() : [],
+            apiReady("getSaleReturns") ? window.electronAPI.getSaleReturns() : [],
+            apiReady("getPurchaseReturns") ? window.electronAPI.getPurchaseReturns() : [],
+            apiReady("getPayments") ? window.electronAPI.getPayments() : [],
+            apiReady("getBankAccounts") ? window.electronAPI.getBankAccounts() : []
+        ]);
+
+        var itemsArr = safeArr(results[0].status === "fulfilled" ? results[0].value : []);
+        var salesArr = safeArr(results[1].status === "fulfilled" ? results[1].value : []);
+        var purchasesArr = safeArr(results[2].status === "fulfilled" ? results[2].value : []);
+        var expensesArr = safeArr(results[3].status === "fulfilled" ? results[3].value : []);
+        var partiesArr = safeArr(results[4].status === "fulfilled" ? results[4].value : []);
+        var saleReturnsArr = safeArr(results[5].status === "fulfilled" ? results[5].value : []);
+        var purchaseReturnsArr = safeArr(results[6].status === "fulfilled" ? results[6].value : []);
+        var paymentsArr = safeArr(results[7].status === "fulfilled" ? results[7].value : []);
+        var bankArr = safeArr(results[8].status === "fulfilled" ? results[8].value : []);
+
+        var now = new Date();
+        var todayStr = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0") + "-" + String(now.getDate()).padStart(2, "0");
+        var askToday = /(aj|aaj|today|abhi|ab|is din)/i.test(q);
+        var currentMonth = new Date().getMonth();
+        var currentYear = new Date().getFullYear();
+
+        // Helpers
+        function todayFilter(arr) { return arr.filter(function(x){ return (x.created_at || "").startsWith(todayStr); }); }
+        function monthFilter(arr) { return arr.filter(function(x){ try { return new Date(x.created_at).getMonth() === currentMonth && new Date(x.created_at).getFullYear() === currentYear; } catch(e) { return false; } }); }
+        function sumField(arr, field) { return arr.reduce(function(s, x){ return s + safeNum(x[field]); }, 0); }
+
+        // Pre-calculate common metrics
+        var totalSalesAll = sumField(salesArr, "total");
+        var totalPurchasesAll = sumField(purchasesArr, "total");
+        var totalExpensesAll = sumField(expensesArr, "amount");
+        var netProfitAll = totalSalesAll - totalPurchasesAll - totalExpensesAll;
+        var todaySales = sumField(todayFilter(salesArr), "total");
+        var todayNetProfit = sumField(todayFilter(salesArr), "total") - sumField(todayFilter(purchasesArr), "total") - sumField(todayFilter(expensesArr), "amount");
+
+        // ===== FOLLOW-UP: "naam btao", "list dikhao", "kaun hai" =====
+        // ONLY match isolated follow-up words (not part of a larger query)
+        if (/^(naam|kaun|list|dikhao|btao|detail|show|kya hai|kya ky|kon kon|naam btao|list dikhao|dikhao naam|btao list)$/i.test(q) && lastContext.intent) {
+            if (lastContext.intent === "low_stock" && lastContext.data.length > 0) {
+                return "Low stock items: " + lastContext.data.map(function(i){ return i.name + " (" + safeNum(i.stock) + " left)"; }).join(", ") + ".";
+            }
+            if (lastContext.intent === "suppliers" && lastContext.data.length > 0) {
+                return "Suppliers: " + lastContext.data.map(function(p){ return p.name; }).join(", ") + ".";
+            }
+            if (lastContext.intent === "customers" && lastContext.data.length > 0) {
+                return "Customers: " + lastContext.data.map(function(p){ return p.name; }).join(", ") + ".";
+            }
+            if (lastContext.intent === "sales_return" && lastContext.data.length > 0) {
+                return "Sales returns: " + lastContext.data.map(function(r){ return r.return_no || ("#" + r.id); }).join(", ") + ".";
+            }
+            if (lastContext.intent === "purchase_return" && lastContext.data.length > 0) {
+                return "Purchase returns: " + lastContext.data.map(function(r){ return r.return_no || ("#" + r.id); }).join(", ") + ".";
+            }
+            if (lastContext.intent === "expenses" && lastContext.data.length > 0) {
+                return "Expenses: " + lastContext.data.map(function(e){ return (e.name || e.category || "-") + " (" + fmtMoney(e.amount) + ")"; }).join(", ") + ".";
+            }
+            if (lastContext.intent === "purchase_items" && lastContext.data.length > 0) {
+                return "Purchased items: " + lastContext.data.map(function(i){ return i.item_name + " (Qty: " + safeNum(i.quantity) + ")"; }).join(", ") + ".";
+            }
+        }
+
+        // Clear context for new distinct queries (prevents memory leak)
+        var isNewQuery = /(sale|purchase|expense|item|customer|supplier|stock|profit|cash|bank|receivable|payable|return|analytics|report|summary|monthly|yearly|daily|best|top|low|expiry)/i.test(q);
+        if (isNewQuery) {
+            lastContext = { intent: null, data: [], type: null };
+        }
+
+        // ===== SMART GREETING SNAPSHOT =====
+        if (/^(hi|hello|hey|salam|assalam|good morning|good evening|good afternoon|kaise ho|kya haal|assalam.o.alaikum|walaikum)/i.test(q)) {
+            return "Hello! I am ready. Quick update: Today's sales are " + fmtMoney(todaySales) + " and your net profit is " + fmtMoney(todayNetProfit) + ". How can I help?";
+        }
+
+        // ===== PAGE AWARENESS (System Navigation) =====
+        if (/(page|kahan|kidhar|where|kaise|how.to|find|dekho|dekhna)/i.test(q)) {
+            if (/sale|biki|invoice/i.test(q)) return "For complete sales details, please visit the Sales Page from the left sidebar.";
+            if (/purchase|khareed|bill/i.test(q)) return "For complete purchase details, please visit the Purchase Page from the left sidebar.";
+            if (/item|product|cheez|saman/i.test(q)) return "For complete item inventory, please visit the Items Page from the left sidebar.";
+            if (/customer|gahak|party/i.test(q)) return "For customer/party details, please visit the Parties Page from the left sidebar.";
+            if (/expense|kharcha/i.test(q)) return "For expense details, please visit the Expenses Page from the left sidebar.";
+            if (/cash|bank|balance/i.test(q)) return "For cash and bank details, please visit the Cash & Bank Page from the left sidebar.";
+            if (/report|analytics|summary/i.test(q)) return "For detailed reports and analytics, please visit the Reports Page from the left sidebar.";
+            if (/dashboard|home|main/i.test(q)) return "You are currently on the Dashboard. You can access it anytime from the left sidebar.";
+            if (/setting/i.test(q)) return "For settings, please visit the Settings Page from the left sidebar.";
+            return "You can find all modules in the left sidebar: Dashboard, Parties, Items, Sales, Purchase, Expenses, Cash & Bank, Reports, and Settings.";
+        }
+
+        // ===== REPORTS & ANALYTICS (must come before generic fallbacks) =====
+        if (/(analytics|report|summary|monthly|yearly|daily)/i.test(q)) {
+            if (/monthly|mahina|is.mahine/i.test(q)) {
+                var ms = sumField(monthFilter(salesArr), "total");
+                var mp = sumField(monthFilter(purchasesArr), "total");
+                var me = sumField(monthFilter(expensesArr), "amount");
+                return "Monthly Analytics - Sales: " + fmtMoney(ms) + ", Purchases: " + fmtMoney(mp) + ", Expenses: " + fmtMoney(me) + ", Net: " + fmtMoney(ms - mp - me) + ". For detailed charts, visit the Reports Page.";
+            }
+            if (/yearly|saal|saalana|saal.ka/i.test(q)) {
+                var yArr = salesArr.filter(function(s){ try { return new Date(s.created_at).getFullYear() === currentYear; } catch(e) { return false; } });
+                var ypArr = purchasesArr.filter(function(p){ try { return new Date(p.created_at).getFullYear() === currentYear; } catch(e) { return false; } });
+                var yeArr = expensesArr.filter(function(e){ try { return new Date(e.created_at).getFullYear() === currentYear; } catch(e) { return false; } });
+                var ys = sumField(yArr, "total");
+                var yp = sumField(ypArr, "total");
+                var ye = sumField(yeArr, "amount");
+                return "Yearly Analytics - Sales: " + fmtMoney(ys) + ", Purchases: " + fmtMoney(yp) + ", Expenses: " + fmtMoney(ye) + ", Net: " + fmtMoney(ys - yp - ye) + ". For detailed charts, visit the Reports Page.";
+            }
+            if (/daily|aaj|aaj.ka/i.test(q)) {
+                var ts = sumField(todayFilter(salesArr), "total");
+                var tp = sumField(todayFilter(purchasesArr), "total");
+                var te = sumField(todayFilter(expensesArr), "amount");
+                return "Daily Summary - Sales: " + fmtMoney(ts) + ", Purchases: " + fmtMoney(tp) + ", Expenses: " + fmtMoney(te) + ", Net: " + fmtMoney(ts - tp - te) + ".";
+            }
+            // Generic reports/analytics fallback
+            return "To view detailed monthly and yearly analytics, please open the Reports Page from the sidebar. You can also ask me specific questions like 'monthly sales' or 'yearly expenses'.";
+        }
+
+        // ===== SALES RETURN (checked BEFORE Sales) =====
+        if (/(sales.return|sale.return|return.ki|biki.wapis|wapsi|sale.wapis|wapsiyan)/i.test(q)) {
+            var retArr = askToday ? todayFilter(saleReturnsArr) : saleReturnsArr;
+            var retTotal = sumField(retArr, "total");
+            lastContext = { intent: "sales_return", data: retArr, type: "return" };
+            if (/(list|naam|kya|dikhao|btao|detail|kon|kaun)/i.test(q)) {
+                if (retArr.length === 0) return "There are no sales returns to show.";
+                return "Sales returns (" + retArr.length + "): " + retArr.map(function(r){ return r.return_no || ("#" + r.id); }).join(", ") + ". Total: " + fmtMoney(retTotal);
+            }
+            return (askToday ? "Today's" : "Total") + " Sales Return is " + fmtMoney(retTotal) + " (" + retArr.length + " returns).";
+        }
+
+        // ===== PURCHASE RETURN (checked BEFORE Purchase) =====
+        if (/(purchase.return|purchases.return|khareed.wapis|khareedi.wapis|purchase.wapis)/i.test(q)) {
+            var retArr = askToday ? todayFilter(purchaseReturnsArr) : purchaseReturnsArr;
+            var retTotal = sumField(retArr, "total");
+            lastContext = { intent: "purchase_return", data: retArr, type: "return" };
+            if (/(list|naam|kya|dikhao|btao|detail|kon|kaun)/i.test(q)) {
+                if (retArr.length === 0) return "There are no purchase returns to show.";
+                return "Purchase returns (" + retArr.length + "): " + retArr.map(function(r){ return r.return_no || ("#" + r.id); }).join(", ") + ". Total: " + fmtMoney(retTotal);
+            }
+            return (askToday ? "Today's" : "Total") + " Purchase Return is " + fmtMoney(retTotal) + " (" + retArr.length + " returns).";
+        }
+
+        // ===== SALES (count vs list vs amount) =====
+        if (/(sale|sales|biki|bechi|sold|bika|farokht|bikayi)/i.test(q)) {
+            var sArr = askToday ? todayFilter(salesArr) : salesArr;
+            var sTotal = sumField(sArr, "total");
+            lastContext = { intent: "sales", data: sArr, type: "sale" };
+            if (/(list|naam|kya|dikhao|btao|detail|invoice|bill|kon|kaun)/i.test(q)) {
+                if (sArr.length === 0) return "There are no sales to show.";
+                return "Sales (" + sArr.length + "): " + sArr.slice(0, 10).map(function(s){ return (s.invoice_no || ("#" + s.id)) + " (" + fmtMoney(s.total) + ")"; }).join(", ") + (sArr.length > 10 ? "... and " + (sArr.length - 10) + " more" : "");
+            }
+            if (/(kitni|count|number|total|kitne)/i.test(q)) {
+                return "You made " + sArr.length + " sale" + (sArr.length === 1 ? "" : "s") + (askToday ? " today" : "") + ".";
+            }
+            return (askToday ? "Today's" : "Total") + " Sales are " + fmtMoney(sTotal) + " (" + sArr.length + " invoices).";
+        }
+
+        // ===== PURCHASES (count vs list) =====
+        if (/(purchase|purchases|khareeda|khareed|khareedi|bought|mila|milaya|stock.aya|khareed)/i.test(q)) {
+            var pArr = askToday ? todayFilter(purchasesArr) : purchasesArr;
+            var pTotal = sumField(pArr, "total");
+            lastContext = { intent: "purchases", data: pArr, type: "purchase" };
+            if (/(list|naam|kya|dikhao|btao|detail|bill|kon|kaun)/i.test(q)) {
+                if (pArr.length === 0) return "There are no purchases to show.";
+                return "Purchases (" + pArr.length + "): " + pArr.slice(0, 10).map(function(p){ return (p.bill_no || ("#" + p.id)) + " (" + fmtMoney(p.total) + ")"; }).join(", ") + (pArr.length > 10 ? "... and " + (pArr.length - 10) + " more" : "");
+            }
+            if (/(kitni|count|number|kitne)/i.test(q)) {
+                return "You made " + pArr.length + " purchase" + (pArr.length === 1 ? "" : "s") + (askToday ? " today" : "") + ".";
+            }
+            return (askToday ? "Today's" : "Total") + " Purchases are " + fmtMoney(pTotal) + " (" + pArr.length + " bills).";
+        }
+
+        // ===== PURCHASE ITEMS (kya khareeda) =====
+        if (/(purchase.item|kya.khareeda|kya.aya|items.khareede|khareed.items)/i.test(q)) {
+            var todayPurch = todayFilter(purchasesArr);
+            var allItems = [];
+            todayPurch.forEach(function(p) {
+                var pItems = p.items || [];
+                pItems.forEach(function(pi) { allItems.push(pi); });
+            });
+            lastContext = { intent: "purchase_items", data: allItems, type: "purchase_item" };
+            if (allItems.length === 0) return "No items purchased today.";
+            return "Purchased items today (" + allItems.length + "): " + allItems.slice(0, 10).map(function(i){ return (i.item_name || ("Item #" + i.item_id)) + " (Qty: " + safeNum(i.quantity) + ", " + fmtMoney(i.total || (safeNum(i.quantity) * safeNum(i.price))) + ")"; }).join(", ") + (allItems.length > 10 ? "... and " + (allItems.length - 10) + " more" : "");
+        }
+
+        // ===== SUPPLIERS (count vs list) =====
+        if (/(supplier|vendor|mal.pichy|mal.wala|suppliers)/i.test(q)) {
+            var suppliers = partiesArr.filter(function(p){ return String(p.type || "").toLowerCase() === "supplier"; });
+            lastContext = { intent: "suppliers", data: suppliers, type: "party" };
+            if (/(kitni|kitne|count|number|total|taradaad)/i.test(q)) {
+                return "You have " + suppliers.length + " supplier" + (suppliers.length === 1 ? "" : "s") + ".";
+            }
+            if (/(naam|name|kaun|list|btao|kya|kon|dikhao|detail)/i.test(q)) {
+                if (suppliers.length === 0) return "You have 0 suppliers.";
+                return "Your suppliers: " + suppliers.map(function(p){ return p.name; }).join(", ") + ".";
+            }
+            if (suppliers.length === 0) return "You have 0 suppliers.";
+            return "You have " + suppliers.length + " suppliers: " + suppliers.map(function(p){ return p.name; }).join(", ") + ".";
+        }
+
+        // ===== CUSTOMERS (count vs list) =====
+        if (/(customer|gahak|client|customers|gahakon)/i.test(q)) {
+            var customers = partiesArr.filter(function(p){ return String(p.type || "").toLowerCase() === "customer"; });
+            lastContext = { intent: "customers", data: customers, type: "party" };
+            if (/(kitni|kitne|count|number|total|taradaad)/i.test(q)) {
+                return "You have " + customers.length + " customer" + (customers.length === 1 ? "" : "s") + ".";
+            }
+            if (/(naam|name|kaun|list|btao|kya|kon|dikhao|detail)/i.test(q)) {
+                if (customers.length === 0) return "You have 0 customers.";
+                return "Your customers: " + customers.map(function(p){ return p.name; }).join(", ") + ".";
+            }
+            var todayCustomers = todayFilter(salesArr);
+            var todayCollected = sumField(todayCustomers, "paid");
+            return customers.length + " customers total. " + todayCustomers.length + " visited today and " + fmtMoney(todayCollected) + " was collected.";
+        }
+
+        // ===== EXPENSES (count vs list vs total) =====
+        if (/(expense|expenses|kharcha|kharche|kharch|kharach|lagay|lagy|kharcha.hua|kharch.ho.gaya|pay.out)/i.test(q)) {
+            var eArr = askToday ? todayFilter(expensesArr) : expensesArr;
+            var eTotal = sumField(eArr, "amount");
+            lastContext = { intent: "expenses", data: eArr, type: "expense" };
+            if (/(list|naam|kya|dikhao|btao|detail|dikha|kon|kaun)/i.test(q)) {
+                if (eArr.length === 0) return "There are no expenses to show.";
+                return "Expenses (" + eArr.length + "): " + eArr.map(function(e){ return (e.name || e.category || "-") + " (" + fmtMoney(e.amount) + ")"; }).join(", ") + ".";
+            }
+            if (/(kitni|kitne|count|number)/i.test(q)) {
+                return "You have " + eArr.length + " expense" + (eArr.length === 1 ? "" : "s") + (askToday ? " today" : "") + ".";
+            }
+            if (eArr.length === 0) return (askToday ? "Today's" : "Total") + " expenses are " + fmtMoney(0) + ".";
+            if (eArr.length === 1) {
+                var exp = eArr[0];
+                return (askToday ? "Today's" : "Total") + " expense: " + fmtMoney(exp.amount) + " via " + (exp.payment_method || "Cash") + " for " + (exp.name || exp.category || "unknown") + ".";
+            }
+            return (askToday ? "Today's" : "Total") + " expenses: " + eArr.length + " entries totaling " + fmtMoney(eTotal) + ".";
+        }
+
+        // ===== PROFIT / LOSS (accurate calculation) =====
+        if (/(profit|munafa|kamaya|bachat|fida|nafa|nuksan|loss|ghatan|nafa.nuksan|net.profit|net.loss)/i.test(q)) {
+            var sVal = askToday ? sumField(todayFilter(salesArr), "total") : totalSalesAll;
+            var pVal = askToday ? sumField(todayFilter(purchasesArr), "total") : totalPurchasesAll;
+            var eVal = askToday ? sumField(todayFilter(expensesArr), "amount") : totalExpensesAll;
+            var net = sVal - pVal - eVal;
+            if (net > 0) return "You have a Net Profit of " + fmtMoney(net) + ". (Sales: " + fmtMoney(sVal) + " - Purchases: " + fmtMoney(pVal) + " - Expenses: " + fmtMoney(eVal) + ")";
+            if (net < 0) return "You are running at a Loss of " + fmtMoney(Math.abs(net)) + ". (Sales: " + fmtMoney(sVal) + " - Purchases: " + fmtMoney(pVal) + " - Expenses: " + fmtMoney(eVal) + ")";
+            return "Your profit and loss are exactly balanced (Rs. 0).";
+        }
+
+        // ===== RECEIVABLES (with typo tolerance) =====
+        if (/(receivable|recieveable|recivable|lene.wale|pending.receivable|lena.hai)/i.test(q)) {
+            var rec = sumField(salesArr, "due");
+            return "Your total pending receivables are " + fmtMoney(rec) + ".";
+        }
+
+        // ===== PAYABLES (with typo tolerance) =====
+        if (/(payable|payble|dene.wale|pending.payable|dena.hai)/i.test(q)) {
+            var pay = sumField(purchasesArr, "due");
+            return "Your total pending payables are " + fmtMoney(pay) + ".";
+        }
+
+        // ===== CASH IN HAND =====
+        if (/(cash.in.hand|galle|draz|baki.cash|hand.cash|kithna.cash|kitna.paisa|cash.bacha)/i.test(q) || /^cash$/i.test(q)) {
+            var payIn = paymentsArr.filter(function(p){ return p.type === "receive"; }).reduce(function(s,p){ return s + safeNum(p.amount); }, 0);
+            var payOut = paymentsArr.filter(function(p){ return p.type === "pay"; }).reduce(function(s,p){ return s + safeNum(p.amount); }, 0);
+            var cash = totalSalesAll + payIn - totalPurchasesAll - totalExpensesAll - payOut;
+            if (cash < 0) return "Cash in Hand is " + fmtMoney(cash) + ". (Note: Your cash balance is negative, please verify your recent entries.)";
+            return "Cash in Hand is " + fmtMoney(cash) + ".";
+        }
+
+        // ===== CASH IN (aamad) =====
+        if (/(cash.in|aamad|paisy.aye|paisa.aya|received|milna|mil.gaya)/i.test(q) && !/cash.out|pay.out|expense/.test(q)) {
+            var cashIn = paymentsArr.filter(function(p){ return p.type === "receive"; }).reduce(function(s,p){ return s + safeNum(p.amount); }, 0);
+            return "Total Cash In (Payments Received) is " + fmtMoney(cashIn) + ".";
+        }
+
+        // ===== CASH OUT =====
+        if (/(cash.out|pay.out|paise.gaye|nikale|paise.nikale)/i.test(q)) {
+            return "Total Cash Out (Expenses) is " + fmtMoney(totalExpensesAll) + ".";
+        }
+
+        // ===== BANK BALANCE =====
+        if (/(bank|bank.balance|hbl|ubl|meezan|bank.account)/i.test(q)) {
+            var bankBal = sumField(bankArr, "current_balance");
+            return "Total bank balance is " + fmtMoney(bankBal) + " (" + bankArr.length + " accounts).";
+        }
+
+        // ===== STOCK VALUE =====
+        if (/(stock.value|inventory.value|saman.ki.qeemat|total.stock.ki.value)/i.test(q)) {
+            var stockVal = itemsArr.reduce(function(s, item){ return s + (safeNum(item.stock) * safeNum(item.purchase_price)); }, 0);
+            return "Total Stock Value is " + fmtMoney(stockVal) + ".";
+        }
+
+        // ===== TOTAL STOCK QUANTITY =====
+        if (/(stock.kitna|total.stock|kitna.stock|saman.kitna|cheezein.kitni|kitna.saman|stock.total)/i.test(q)) {
+            var totalStock = itemsArr.reduce(function(sum, item){ return sum + safeNum(item.stock); }, 0);
+            return "You currently have a total of " + totalStock.toLocaleString("en-IN") + " items in your inventory.";
+        }
+
+        // ===== ITEMS COUNT =====
+        if (/(kitni.cheezein|kitne.items|total.items|items.kitne|items.count|item.kitne)/i.test(q)) {
+            return "You have " + itemsArr.length + " item" + (itemsArr.length === 1 ? "" : "s") + " in your inventory.";
+        }
+
+        // ===== LOW STOCK =====
+        if (/(out.of.stock|out stock|stock khatam|saman khatam|zero stock)/i.test(q)) {
+            var outOfStockItems = itemsArr.filter(function(i){ return safeNum(i.stock) <= 0; });
+            lastContext = { intent: "low_stock", data: outOfStockItems, type: "item" };
+            if (/(naam|name|kaun|list|btao|kya|dikhao|kon)/i.test(q)) {
+                if (outOfStockItems.length === 0) return "No out-of-stock items found.";
+                return "Out-of-stock items: " + outOfStockItems.map(function(i){ return i.name; }).join(", ") + ".";
+            }
+            return "There are " + outOfStockItems.length + " out-of-stock item" + (outOfStockItems.length === 1 ? "" : "s") + ".";
+        }
+
+        if (/(low.stock|kam.stock|kam.saman|minimum.stock)/i.test(q)) {
+            var lowItems = itemsArr.filter(function(i){ return safeNum(i.stock) <= safeNum(i.low_stock_limit || 5); });
+            lastContext = { intent: "low_stock", data: lowItems, type: "item" };
+            if (/(naam|name|kaun|list|btao|kya|dikhao|kon)/i.test(q)) {
+                if (lowItems.length === 0) return "No low stock items found.";
+                return "Low stock items: " + lowItems.map(function(i){ return i.name + " (" + safeNum(i.stock) + " left)"; }).join(", ") + ".";
+            }
+            return "There are " + lowItems.length + " low stock item" + (lowItems.length === 1 ? "" : "s") + ".";
+        }
+
+        // ===== EXPIRY ALERTS =====
+        if (/(expiry|expire|khatam|kharaab|expired|near.expiry|expiry.date)/i.test(q)) {
+            var now = new Date();
+            var thirtyDays = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
+            var expiredItems = itemsArr.filter(function(i) {
+                if (!i.expiry_date) return false;
+                var d = new Date(i.expiry_date);
+                return !isNaN(d) && d < now;
+            });
+            var expiringItems = itemsArr.filter(function(i) {
+                var expiryDate = i.current_expiry_date || i.expiry_date;
+                if (!expiryDate) return false;
+                var d = new Date(expiryDate);
+                return !isNaN(d) && d >= now && d <= thirtyDays;
+            });
+            lastContext = { intent: "expiry", data: expiredItems.concat(expiringItems), type: "item" };
+            if (/(naam|name|kaun|list|btao|kya|dikhao)/i.test(q)) {
+                var allExp = expiredItems.concat(expiringItems);
+                if (allExp.length === 0) return "No expiry alerts.";
+                return "Expiring/Expired: " + allExp.map(function(i){ return i.name + " (" + i.expiry_date + ")"; }).join(", ") + ".";
+            }
+            return "There are " + expiredItems.length + " expired and " + expiringItems.length + " items expiring within 30 days.";
+        }
+
+        // ===== SPECIFIC ITEM DETAILS =====
+        for (var i = 0; i < itemsArr.length; i++) {
+            var item = itemsArr[i];
+            var itemName = String(item.name || "").toLowerCase().trim();
+            if (!itemName) continue;
+            if (q.includes(itemName)) {
+                var unit = item.unit || "units";
+                if (/(purchase.price|khareed.qeemat|kitna.khareeda)/i.test(q)) return item.name + " purchase price is " + fmtMoney(item.purchase_price) + ".";
+                if (/(sale.price|farokht.qeemat|kitna.bechta|bech.price)/i.test(q)) return item.name + " sale price is " + fmtMoney(item.sale_price) + ".";
+                if (/(expiry|khatam|kharaab|expiry.date|kab.khatam)/i.test(q)) return item.name + " expiry date is " + (item.current_expiry_date || item.expiry_date || "not set") + ".";
+                if (/(stock|kitna.hai|bacha|remaining|quantity|mota|kitna)/i.test(q)) return item.name + " stock is " + safeNum(item.stock).toLocaleString("en-IN") + " " + unit + ".";
+                if (/(kitna.aya|aya.tha|purchased|khareeda)/i.test(q)) {
+                    var totalPurch = purchasesArr.reduce(function(sum, p) {
+                        return sum + safeArr(p.items).filter(function(pi){ return safeNum(pi.item_id) === safeNum(item.id); }).reduce(function(s, pi){ return s + safeNum(pi.quantity); }, 0);
+                    }, 0);
+                    return "Total stock received for " + item.name + " was " + totalPurch.toLocaleString("en-IN") + " " + unit + ".";
+                }
+                return item.name + " - Stock: " + safeNum(item.stock).toLocaleString("en-IN") + " " + unit + ", Purchase: " + fmtMoney(item.purchase_price) + ", Sale: " + fmtMoney(item.sale_price) + ".";
+            }
+        }
+
+        // ===== PAYMENTS =====
+        if (/(pay.in|pay.out|payment|payments|cash.out|paise|milna|mil.gaya|diya|diya.hai|received)/i.test(q)) {
+            var totalIn = paymentsArr.filter(function(p){ return p.type === "receive"; }).reduce(function(s,p){ return s + safeNum(p.amount); }, 0);
+            var totalOut = paymentsArr.filter(function(p){ return p.type === "pay"; }).reduce(function(s,p){ return s + safeNum(p.amount); }, 0);
+            if (/(pay.in|received|milna|mil.gaya)/i.test(q)) return "Total Payment Received (Cash In) is " + fmtMoney(totalIn) + ".";
+            if (/(pay.out|paid|diya|diya.hai|cash.out|paise.gaye)/i.test(q)) return "Total Payment Made (Cash Out) is " + fmtMoney(totalOut) + ".";
+            return "Cash In: " + fmtMoney(totalIn) + ". Cash Out: " + fmtMoney(totalOut) + ". Net: " + fmtMoney(totalIn - totalOut) + ".";
+        }
+
+        // ===== BEST PERFORMER / TOP ITEM =====
+        if (/(top|best|sab.se.zyada|highest|maximum|bestseller)/i.test(q)) {
+            var itemSalesMap = {};
+            todayFilter(salesArr).forEach(function(s) {
+                var saleItems = s.items || [];
+                saleItems.forEach(function(si) {
+                    var id = safeNum(si.item_id);
+                    itemSalesMap[id] = (itemSalesMap[id] || 0) + safeNum(si.quantity);
+                });
+            });
+            var topItemId = null;
+            var topQty = 0;
+            for (var key in itemSalesMap) {
+                if (itemSalesMap[key] > topQty) {
+                    topQty = itemSalesMap[key];
+                    topItemId = key;
+                }
+            }
+            if (topItemId) {
+                var topItem = itemsArr.find(function(i){ return safeNum(i.id) === safeNum(topItemId); });
+                if (topItem) return "Best performer today: " + topItem.name + " with " + topQty.toLocaleString("en-IN") + " units sold.";
+            }
+            return "No sales recorded today to determine the best performer.";
+        }
+        // ===== ADVANCE BOOKINGS =====
+        if (/(advance.booking|advance.bookings|booking|bookings|advance.order|advance.orders)/i.test(q)) {
+            var bookingsArr = [];
+            try {
+                bookingsArr = JSON.parse(localStorage.getItem("pakKhatta_advanceBookings") || "[]");
+            } catch(e) { bookingsArr = []; }
+
+            var activeBookings = bookingsArr.filter(function(b){ return b.status !== "Completed"; });
+            var targetBookings = askToday ? bookingsArr.filter(function(b){ return b.pickupDate === todayStr && b.status !== "Completed"; }) : activeBookings;
+            
+            lastContext = { intent: "advance_bookings", data: targetBookings, type: "booking" };
+
+            // 1. Names / "Kis ki hai" / "Naam btao"
+            if (/(kis.ki|kaun|kon|naam|name|names)/i.test(q)) {
+                if (targetBookings.length === 0) return "No active advance bookings found" + (askToday ? " for today." : ".");
+                return "Advance booking names: " + targetBookings.map(function(b){ 
+                    return (b.customerName || "Unknown") + " (" + (b.itemDetails || "Item") + ")"; 
+                }).join(", ") + ".";
+            }
+
+            // 2. Dates / "Kab ki hai" / "Date btao"
+            if (/(date|tareeq|kab|din)/i.test(q)) {
+                if (targetBookings.length === 0) return "No active advance bookings found to show dates.";
+                return "Advance booking dates: " + targetBookings.map(function(b){ 
+                    return (b.customerName || "Customer") + " (Pickup: " + (b.pickupDate || "no date") + ")"; 
+                }).join(", ") + ".";
+            }
+
+            // 3. Count / "Kitni hain"
+            if (/(kitni|kitne|count|number|total)/i.test(q)) {
+                return "You have " + activeBookings.length + " active advance booking" + (activeBookings.length === 1 ? "" : "s") + (askToday ? " for today." : ".");
+            }
+
+            // 4. General List / Details / "List dikhao"
+            if (/(list|dikhao|btao|detail|kya)/i.test(q)) {
+                if (targetBookings.length === 0) return "No active advance bookings found" + (askToday ? " for today." : ".");
+                return "Advance bookings (" + targetBookings.length + "): " + targetBookings.map(function(b){ 
+                    return (b.customerName || "Customer") + " - " + (b.itemDetails || "Item") + " (Pickup: " + (b.pickupDate || "-") + ")"; 
+                }).join(", ") + ".";
+            }
+
+            return "You have " + activeBookings.length + " active advance booking" + (activeBookings.length === 1 ? "" : "s") + (askToday ? " scheduled for today." : ".");
+        }
+
+        // ===== REPORTS & ANALYTICS =====
+        if (/(daily.summary|daily.report|aaj.ka.report|aaj.ki.report)/i.test(q)) {
+            var ts = sumField(todayFilter(salesArr), "total");
+            var tp = sumField(todayFilter(purchasesArr), "total");
+            var te = sumField(todayFilter(expensesArr), "amount");
+            return "Daily Summary - Sales: " + fmtMoney(ts) + ", Purchases: " + fmtMoney(tp) + ", Expenses: " + fmtMoney(te) + ", Net: " + fmtMoney(ts - tp - te) + ".";
+        }
+
+        if (/(monthly.analytics|monthly.report|mahina|monthly|is.mahine)/i.test(q)) {
+            var ms = sumField(monthFilter(salesArr), "total");
+            var mp = sumField(monthFilter(purchasesArr), "total");
+            var me = sumField(monthFilter(expensesArr), "amount");
+            return "Monthly Analytics - Sales: " + fmtMoney(ms) + ", Purchases: " + fmtMoney(mp) + ", Expenses: " + fmtMoney(me) + ", Net: " + fmtMoney(ms - mp - me) + ".";
+        }
+
+        if (/(yearly.analytics|yearly.report|saal|saalana|yearly|saal.ka)/i.test(q)) {
+            var yArr = salesArr.filter(function(s){ try { return new Date(s.created_at).getFullYear() === currentYear; } catch(e) { return false; } });
+            var ypArr = purchasesArr.filter(function(p){ try { return new Date(p.created_at).getFullYear() === currentYear; } catch(e) { return false; } });
+            var yeArr = expensesArr.filter(function(e){ try { return new Date(e.created_at).getFullYear() === currentYear; } catch(e) { return false; } });
+            var ys = sumField(yArr, "total");
+            var yp = sumField(ypArr, "total");
+            var ye = sumField(yeArr, "amount");
+            return "Yearly Analytics - Sales: " + fmtMoney(ys) + ", Purchases: " + fmtMoney(yp) + ", Expenses: " + fmtMoney(ye) + ", Net: " + fmtMoney(ys - yp - ye) + ".";
+        }
+
+        if (/(all.time|all-time|kul|mukammal|total.business)/i.test(q)) {
+            return "All-Time - Sales: " + fmtMoney(totalSalesAll) + ", Purchases: " + fmtMoney(totalPurchasesAll) + ", Expenses: " + fmtMoney(totalExpensesAll) + ", Net: " + fmtMoney(netProfitAll) + ".";
+        }
+
+        if (/(sales.report|purchase.report|expense.report|profit.report)/i.test(q)) {
+            return "Sales Report - Total: " + fmtMoney(totalSalesAll) + " (" + salesArr.length + " invoices). Purchase Report - Total: " + fmtMoney(totalPurchasesAll) + " (" + purchasesArr.length + " bills). Expense Report - Total: " + fmtMoney(totalExpensesAll) + " (" + expensesArr.length + " entries). Net Profit: " + fmtMoney(netProfitAll) + ".";
+        }
+
+        // ===== UNIVERSAL FALLBACK CALCULATOR =====
+        if (/(kitna|kitni|total|sum|calculate|hisab|batao|kitne)/i.test(q)) {
+            if (/sale|biki|bechi/i.test(q)) return "Total Sales: " + fmtMoney(totalSalesAll) + ". Today: " + fmtMoney(todaySales) + ".";
+            if (/purchase|khareed|khareeda/i.test(q)) return "Total Purchases: " + fmtMoney(totalPurchasesAll) + ".";
+            if (/expense|kharcha|kharche/i.test(q)) return "Total Expenses: " + fmtMoney(totalExpensesAll) + ".";
+            if (/item|cheez|saman|stock/i.test(q)) return "Total Items: " + itemsArr.length + ". Total Stock: " + itemsArr.reduce(function(s,i){return s+safeNum(i.stock);},0).toLocaleString("en-IN") + " units.";
+            if (/customer|gahak/i.test(q)) return "Total Customers: " + partiesArr.filter(function(p){return String(p.type||"").toLowerCase()==="customer";}).length + ".";
+            if (/supplier|vendor/i.test(q)) return "Total Suppliers: " + partiesArr.filter(function(p){return String(p.type||"").toLowerCase()==="supplier";}).length + ".";
+        }
+
+        // ===== MODULE EXPLANATION INTENTS (System Navigator) =====
+        if (/(parties|party|supplier|customer|gahak).*(baray|bare|btao|info|kya|kia|explain|detail|ke.bare|ke.bare.mein|kya.hai|kia.hai)/i.test(q)) {
+            return "The Parties Page is where you manage all your Customers and Suppliers. You can view their total balances, add new parties, and track who owes you money (Receivables) and who you owe (Payables).";
+        }
+        if (/(item|stock|inventory|saman|cheez).*(baray|bare|btao|info|kya|kia|explain|detail|ke.bare|ke.bare.mein|kya.hai|kia.hai)/i.test(q) && !/(low|kam|khatam|expiry)/i.test(q)) {
+            return "The Items Page holds your complete inventory. You can add new products, set their sale/purchase prices, check current stock levels, and get alerts for low stock or expiring items.";
+        }
+        if (/(dashboard).*(baray|bare|btao|info|kya|kia|explain|detail|ke.bare|ke.bare.mein|kya.hai|kia.hai)/i.test(q)) {
+            return "The Dashboard is your main control center. It gives you a quick snapshot of today's sales, purchases, net profit, cash in hand, and active alerts for your business.";
+        }
+        if (/(sale|biki|invoice).*(baray|bare|btao|info|kya|kia|explain|detail|ke.bare|ke.bare.mein|kya.hai|kia.hai)/i.test(q) && !/(return|wapis)/i.test(q)) {
+            return "The Sales Page allows you to create new customer invoices, view past sales, and process sale returns. It automatically updates your stock and cash.";
+        }
+        if (/(purchase|khareed|bill).*(baray|bare|btao|info|kya|kia|explain|detail|ke.bare|ke.bare.mein|kya.hai|kia.hai)/i.test(q) && !/(return|wapis)/i.test(q)) {
+            return "The Purchase Page is for recording stock bought from suppliers. It tracks your expenses, updates inventory, and logs purchase returns.";
+        }
+        if (/(expense|kharch|kharche|lagay).*(baray|bare|btao|info|kya|kia|explain|detail|ke.bare|ke.bare.mein|kya.hai|kia.hai)/i.test(q)) {
+            return "The Expenses Page tracks all your daily business costs (like bills, salaries, rent) so they can be deducted from your total sales to calculate accurate net profit.";
+        }
+        if (/(cash|bank|balance).*(baray|bare|btao|info|kya|kia|explain|detail|ke.bare|ke.bare.mein|kya.hai|kia.hai)/i.test(q)) {
+            return "The Cash & Bank Page acts as your digital wallet. It shows the exact cash in your drawer and your bank account balances based on all system transactions.";
+        }
+        if (/(report|analytic|summary).*(baray|bare|btao|info|kya|kia|explain|detail|ke.bare|ke.bare.mein|kya.hai|kia.hai)/i.test(q)) {
+            return "The Reports Page provides deep business insights. You can view daily summaries, detailed profit/loss statements, and monthly or yearly performance charts.";
+        }
+        
+
+        // ===== SMART UNIVERSAL FALLBACK =====
+        // Try to extract keywords and suggest related pages
+        var topic = "";
+        if (/sale|biki|invoice/i.test(q)) topic = "Sales";
+        else if (/purchase|khareed|bill/i.test(q)) topic = "Purchase";
+        else if (/item|product|cheez|saman|stock/i.test(q)) topic = "Items";
+        else if (/customer|gahak|party/i.test(q)) topic = "Parties";
+        else if (/expense|kharcha/i.test(q)) topic = "Expenses";
+        else if (/cash|bank|balance/i.test(q)) topic = "Cash & Bank";
+        else if (/report|analytics|summary/i.test(q)) topic = "Reports";
+
+        if (topic) {
+            return "I couldn't find exact calculations for that query. However, you can check the " + topic + " Page from the sidebar for full details, or try asking something like '" + topic + " kitna hua?' or '" + topic + " ki list btao'.";
+        }
+
+        return "I couldn't understand that query. You can ask me about sales, purchases, expenses, profits, stock levels, suppliers, customers, and reports. For detailed views, please visit the related module from the sidebar (Dashboard, Sales, Purchase, Items, Parties, Expenses, Cash & Bank, or Reports).";
+
+    } catch (error) {
+        console.error("Chatbot error:", error);
+        return "I am still syncing the latest data. Please give me a moment and try again.";
+    }
+}
+</script>
+
+
+<!-- FLOATING AI CHATBOT -->
+<div id="chatBotFloatingBtn"
+    onclick="toggleChatBot()"
+    style="position:fixed; bottom:24px; right:24px; z-index:9999; width:56px; height:56px; border-radius:50%; background:#047857; box-shadow:0 4px 20px rgba(4,120,87,0.4); display:flex; align-items:center; justify-content:center; cursor:pointer; pointer-events:auto;"
+    onmouseover="this.style.transform='scale(1.1)'"
+    onmouseout="this.style.transform='scale(1)'"
+>
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+</div>
+
+<div id="chatBotWindow"
+    style="position:fixed; bottom:90px; right:24px; z-index:9999; width:340px; height:460px; background:#fff; border-radius:16px; box-shadow:0 10px 40px rgba(0,0,0,0.15); border:1px solid #e5e7eb; display:none; flex-direction:column; overflow:hidden; pointer-events:auto; font-family:system-ui,-apple-system,sans-serif;"
+>
+    <div style="padding:14px 16px; background:#047857; color:#fff; display:flex; align-items:center; justify-content:space-between;">
+        <span style="font-weight:600; font-size:14px; color:#fff;">PakKhatta AI</span>
+        <button onclick="toggleChatBot()" style="background:none; border:none; color:#fff; cursor:pointer; font-size:20px; padding:0 4px; line-height:1;">&times;</button>
+    </div>
+    <div id="chatBotMessages" style="flex:1; overflow-y:auto; padding:12px 14px; display:flex; flex-direction:column; gap:8px; background:#f9fafb;">
+        <div style="background:#e0e7ff; color:#3730a3; padding:10px 14px; border-radius:12px 12px 12px 4px; font-size:13px; align-self:flex-start; max-width:85%; line-height:1.5; font-weight:normal;">Hello! How can I help you manage your business today?</div>
+    </div>
+    <div style="padding:10px 12px; border-top:1px solid #e5e7eb; display:flex; gap:8px; background:#fff;">
+        <input id="chatBotInput" type="text" placeholder="Ask about sales, stock, profit..." onkeydown="if(event.key==='Enter')sendChatMessage()" style="flex:1; padding:10px 14px; border:1px solid #e5e7eb; border-radius:20px; font-size:13px; outline:none; background:#f9fafb;" onfocus="this.style.borderColor='#6366f1'" onblur="this.style.borderColor='#e5e7eb'" />
+        <button onclick="sendChatMessage()" style="width:38px; height:38px; border-radius:50%; background:#047857; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+    </div>
+</div>
+
+
+</body>
+
+</html>

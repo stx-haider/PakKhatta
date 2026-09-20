@@ -1,0 +1,446 @@
+﻿function sendChatMessage() {
+    const input = document.getElementById("chatBotInput");
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = "";
+
+    addChatMessage(text, "user");
+
+    processChatQuery(text).then(response => {
+        addChatMessage(response, "bot");
+    });
+}
+
+function addChatMessage(text, sender) {
+    const container = document.getElementById("chatBotMessages");
+    if (!container) return;
+
+    const isUser = sender === "user";
+    const msg = document.createElement("div");
+    msg.style.cssText = `
+        padding:10px 14px; border-radius:12px; font-size:13px;
+        max-width:85%; line-height:1.5; word-wrap:break-word;
+        ${isUser
+            ? "background:#6366f1; color:#fff; align-self:flex-end; border-radius:12px 12px 4px 12px;"
+            : "background:#e0e7ff; color:#3730a3; align-self:flex-start; border-radius:12px 12px 12px 4px;"}
+    `;
+    msg.textContent = text;
+    container.appendChild(msg);
+    container.scrollTop = container.scrollHeight;
+}
+
+
+
+// ======================================================
+// MODULAR CHATBOT HANDLERS
+// ======================================================
+
+function dashboardHandler(q, data) {
+    const { salesArr, purchasesArr, expensesArr, paymentsArr, itemsArr, todayStr } = data;
+    const askToday = /(aj|aaj|today|abhi|ab|is din)/i.test(q);
+
+    // Cash in Hand
+    if (/(cash|cash in hand|hand cash|kithna cash|kitna paisa)/i.test(q) && !/bank|sales|purchase|expense/.test(q)) {
+        const paymentsIn = paymentsArr.filter(p => p.type === "receive").reduce((s, p) => s + (Number(p.amount) || 0), 0);
+        const paymentsOut = paymentsArr.filter(p => p.type === "pay").reduce((s, p) => s + (Number(p.amount) || 0), 0);
+        const totalSales = salesArr.reduce((s, sale) => s + (Number(sale.total) || 0), 0);
+        const totalPurchases = purchasesArr.reduce((s, p) => s + (Number(p.total) || 0), 0);
+        const totalExpenses = expensesArr.reduce((s, e) => s + (Number(e.amount) || 0), 0);
+        const cashInHand = totalSales + paymentsIn - totalPurchases - totalExpenses - paymentsOut;
+        return "Cash in Hand is " + formatMoney(cashInHand) + ".";
+    }
+
+    // Bank Balance
+    if (/(bank|bank balance|hbl|ubl|meezan|bank account)/i.test(q)) {
+        const bankAccounts = (typeof getBankAccounts !== "undefined") ? [] : [];
+        return "Bank balance feature requires bank accounts. Total bank balance is " + formatMoney(0) + ".";
+    }
+
+    // Receivables
+    if (/(receivable|receivables|lena hai|milna baqi|baqi lena)/i.test(q)) {
+        const receivables = salesArr.reduce((s, sale) => s + (Number(sale.due) || 0), 0);
+        return "Total Receivables are " + formatMoney(receivables) + ".";
+    }
+
+    // Payables
+    if (/(payable|payables|dena hai|baqi dena|supplier ko dena)/i.test(q)) {
+        const payables = purchasesArr.reduce((s, p) => s + (Number(p.due) || 0), 0);
+        return "Total Payables are " + formatMoney(payables) + ".";
+    }
+
+    // Stock Value
+    if (/(stock value|inventory value|saman ki qeemat|total stock ki value)/i.test(q)) {
+        const stockVal = itemsArr.reduce((s, item) => s + (Number(item.stock || 0) * Number(item.purchase_price || 0)), 0);
+        return "Total Stock Value is " + formatMoney(stockVal) + ".";
+    }
+
+    return null;
+}
+
+function alertsHandler(q, data) {
+    const { itemsArr } = data;
+
+    // Low Stock
+    if (/(low stock|kam stock|kam saman|minimum stock)/i.test(q)) {
+        const lowStockItems = itemsArr.filter(i => Number(i.stock || 0) <= Number(i.low_stock_limit || 5));
+        if (/(kitna|count|number|total)/i.test(q)) {
+            return "There are " + lowStockItems.length + " low stock items.";
+        }
+        if (/(naam|name|kaun|list|btao|kya kya)/i.test(q)) {
+            if (lowStockItems.length === 0) return "No low stock items found.";
+            return "Low stock items: " + lowStockItems.map(i => i.name).join(", ") + ".";
+        }
+        return "There are " + lowStockItems.length + " low stock items. Ask 'naam btao' to see their names.";
+    }
+
+    // Expiry Alerts
+    if (/(expiry|expire|khatam|kharaab|expired|near expiry)/i.test(q)) {
+        const now = new Date();
+        const thirtyDays = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
+        const expiringItems = itemsArr.filter(i => {
+            if (!i.expiry_date) return false;
+            const expDate = new Date(i.expiry_date);
+            return expDate <= thirtyDays;
+        });
+        const expiredItems = itemsArr.filter(i => {
+            if (!i.expiry_date) return false;
+            return new Date(i.expiry_date) < now;
+        });
+        if (/(kitna|count|number|total)/i.test(q)) {
+            return "There are " + expiredItems.length + " expired items and " + expiringItems.length + " items expiring soon.";
+        }
+        if (/(naam|name|kaun|list|btao|kya kya)/i.test(q)) {
+            const allExpiring = [...expiredItems, ...expiringItems];
+            if (allExpiring.length === 0) return "No expiry alerts.";
+            return "Expiring/Expired items: " + allExpiring.map(i => i.name).join(", ") + ".";
+        }
+        return "There are " + expiredItems.length + " expired and " + expiringItems.length + " items expiring within 30 days.";
+    }
+
+    return null;
+}
+
+function partiesHandler(q, data) {
+    const { partiesArr, salesArr, todayStr } = data;
+
+    // ===== CUSTOMERS =====
+    // LIST customers (checked BEFORE count)
+    if (/(customer|gahak|client|customers|gahakon).*(show|naam|list|dikhao|btao|kya kya|kon|detail)/i.test(q) || /(show|list|naam|dikhao|btao|kya kya|kon).*(customer|gahak|client|customers|gahakon)/i.test(q)) {
+        const customers = partiesArr.filter(p => String(p.type || "").toLowerCase() === "customer");
+        if (customers.length === 0) return "There are no customers to show right now.";
+        return "Here are your customers: " + customers.map(p => p.name).join(", ") + ".";
+    }
+    // COUNT customers
+    if (/(total customer|kitne customer|kitni customer|customer count|customer btao|gahak kitne)/i.test(q)) {
+        const customers = partiesArr.filter(p => String(p.type || "").toLowerCase() === "customer");
+        const len = customers.length;
+        return "You have " + len + " customer" + (len === 1 ? "" : "s") + ".";
+    }
+    // General customer query
+    if (/(customer|gahak|client|customers|gahakon)/i.test(q) && !/supplier|vendor/.test(q)) {
+        const customers = partiesArr.filter(p => String(p.type || "").toLowerCase() === "customer");
+        const todayCustomers = salesArr.filter(s => (s.created_at || "").startsWith(todayStr));
+        const todayCustCount = todayCustomers.length;
+        const todayCollected = todayCustomers.reduce((s, sale) => s + (Number(sale.paid) || 0), 0);
+        return customers.length + " customers total. " + todayCustCount + " customers visited today and " + formatMoney(todayCollected) + " was collected.";
+    }
+
+    // ===== SUPPLIERS =====
+    // LIST suppliers (checked BEFORE count)
+    if (/(supplier|vendor|party).*(show|naam|list|dikhao|btao|kya kya|kon|detail)/i.test(q) || /(show|list|naam|dikhao|btao|kya kya|kon).*(supplier|vendor|party)/i.test(q)) {
+        const suppliers = partiesArr.filter(p => String(p.type || "").toLowerCase() === "supplier");
+        if (suppliers.length === 0) return "There are no suppliers to show right now.";
+        return "Here are your suppliers: " + suppliers.map(p => p.name).join(", ") + ".";
+    }
+    // COUNT suppliers
+    if (/(total supplier|kitne supplier|kitni supplier|supplier count|supplier btao|vendor kitne)/i.test(q)) {
+        const suppliers = partiesArr.filter(p => String(p.type || "").toLowerCase() === "supplier");
+        const len = suppliers.length;
+        return "You have " + len + " supplier" + (len === 1 ? "" : "s") + ".";
+    }
+    // General supplier query
+    if (/(supplier|vendor|mal pichy sy|mal wala|suppliers)/i.test(q)) {
+        const suppliers = partiesArr.filter(p => String(p.type || "").toLowerCase() === "supplier");
+        if (suppliers.length === 0) return "You have 0 suppliers.";
+        return "You have " + suppliers.length + " supplier" + (suppliers.length === 1 ? "" : "s") + ": " + suppliers.map(p => p.name).join(", ") + ".";
+    }
+
+    return null;
+}
+
+function itemsHandler(q, data) {
+    const { itemsArr, purchasesArr } = data;
+
+    // ===== LIST ITEMS (checked BEFORE count) =====
+    if (/(item|product|cheez|saman).*(show|list|naam|dikhao|btao|kya kya|kon|detail)/i.test(q) || /(show|list|naam|dikhao|btao|kya kya|kon|dikhao|dikha).*(item|product|cheez|saman)/i.test(q)) {
+        if (itemsArr.length === 0) return "There are no items to show right now.";
+        return "Here are your items: " + itemsArr.map(i => i.name).join(", ") + ".";
+    }
+
+    // ===== COUNT ITEMS =====
+    if (/(total item|kitne item|kitni|item count|items btao|kitni cheezein|cheezein kitni|items kitne|kitny item)/i.test(q)) {
+        const len = itemsArr.length;
+        return "You have " + len + " item" + (len === 1 ? "" : "s") + " in your inventory.";
+    }
+
+    // ===== SPECIFIC ITEM DETAILS =====
+    for (const item of itemsArr) {
+        const itemName = String(item.name || "").toLowerCase().trim();
+        if (!itemName) continue;
+        if (q.includes(itemName)) {
+            const unit = item.unit || "units";
+            if (/(purchase price|khareed qeemat|kitna khareeda)/i.test(q)) {
+                return item.name + " purchase price is " + formatMoney(item.purchase_price) + ".";
+            }
+            if (/(sale price|farokht qeemat|kitna bechta|bech price)/i.test(q)) {
+                return item.name + " sale price is " + formatMoney(item.sale_price) + ".";
+            }
+            if (/(expiry|khatam|kharaab|expiry date|kab khatam)/i.test(q)) {
+                return item.name + " expiry date is " + (item.expiry_date || "not set") + ".";
+            }
+            if (/(stock|kitna hai|bacha|remaining|quantity|mota)/i.test(q)) {
+                return item.name + " stock is " + (Number(item.stock) || 0) + " " + unit + ".";
+            }
+            if (/(kitna aaya|aya tha|purchased|khareeda)/i.test(q)) {
+                const totalPurch = purchasesArr.reduce((sum, p) => {
+                    return sum + (p.items || []).filter(pi => Number(pi.item_id) === Number(item.id)).reduce((s, pi) => s + (Number(pi.quantity) || 0), 0);
+                }, 0);
+                return "Total stock received for " + item.name + " was " + totalPurch + " " + unit + ".";
+            }
+            return item.name + " - Stock: " + (Number(item.stock) || 0) + " " + unit + ", Purchase: " + formatMoney(item.purchase_price) + ", Sale: " + formatMoney(item.sale_price) + ".";
+        }
+    }
+
+    return null;
+}
+
+function salesHandler(q, data) {
+    const { salesArr, saleReturnsArr, todayStr } = data;
+    const askToday = /(aj|aaj|today|abhi|ab|is din)/i.test(q);
+
+    // ===== SALES RETURN (checked BEFORE Sales) =====
+    // LIST sales return items
+    if (/(return|wapis).*(show|naam|list|dikhao|btao|kya kya|detail|item)/i.test(q) || /(show|list|naam|dikhao|btao|kya kya).*(return|wapis)/i.test(q)) {
+        const returnsArr = askToday ? saleReturnsArr.filter(r => (r.created_at || "").startsWith(todayStr)) : saleReturnsArr;
+        if (returnsArr.length === 0) return "There are no sales returns to show right now.";
+        return "Sales returns: " + returnsArr.length + " return" + (returnsArr.length === 1 ? "" : "s") + " found.";
+    }
+    // COUNT sales returns
+    if (/(sales return|sale return|return ki|biki wapis|wapsi|sale wapis).*(kitna|count|number|total)/i.test(q)) {
+        const len = saleReturnsArr.length;
+        return "Total Sales Return count: " + len + ".";
+    }
+    // General sales return
+    if (/(sales return|sale return|return ki|biki wapis|wapsi|sale wapis)/i.test(q)) {
+        if (askToday) {
+            const todayReturns = saleReturnsArr.filter(r => (r.created_at || "").startsWith(todayStr));
+            const todayRetTotal = todayReturns.reduce((s, r) => s + (Number(r.total) || 0), 0);
+            return "Today's Sales Return is " + formatMoney(todayRetTotal) + ".";
+        }
+        const totalReturns = saleReturnsArr.reduce((s, r) => s + (Number(r.total) || 0), 0);
+        return "Total Sales Return is " + formatMoney(totalReturns) + ". Count: " + saleReturnsArr.length + ".";
+    }
+
+    // ===== SALES =====
+    // COUNT sales
+    if (/(sale|sales|biki|bechi).*(kitna|count|number|total|kitni)/i.test(q) || /(total sale|kitne sale|kitni sale|sale count)/i.test(q)) {
+        if (askToday) {
+            const todaySales = salesArr.filter(s => (s.created_at || "").startsWith(todayStr));
+            return "Today you made " + todaySales.length + " sale" + (todaySales.length === 1 ? "" : "s") + ".";
+        }
+        return "Total invoices: " + salesArr.length + ".";
+    }
+    // General sales
+    if (/(sale|sales|biki|bechi|sold|bika|bikayi|farokht|aj ki sale|aaj ki biki)/i.test(q)) {
+        if (askToday) {
+            const todaySales = salesArr.filter(s => (s.created_at || "").startsWith(todayStr));
+            const todayTotal = todaySales.reduce((s, sale) => s + (Number(sale.total) || 0), 0);
+            return "Today you made " + todaySales.length + " sales totaling " + formatMoney(todayTotal) + ".";
+        }
+        const totalSales = salesArr.reduce((s, sale) => s + (Number(sale.total) || 0), 0);
+        return "Total Sales are " + formatMoney(totalSales) + ". Total invoices: " + salesArr.length + ".";
+    }
+
+    return null;
+}
+
+function expensesHandler(q, data) {
+    const { expensesArr, todayStr } = data;
+    const askToday = /(aj|aaj|today|abhi|ab|is din)/i.test(q);
+
+    if (/(expense|expenses|kharcha|kharche|kharch|kharach|lagay|lagy|kharcha hua|kharch ho gaya|pay out)/i.test(q)) {
+        // LIST expenses (checked BEFORE count/total)
+        if (/(expense|expenses|kharcha|kharche|kharch).*(show|naam|list|dikhao|btao|kya kya|detail|dikha)/i.test(q) || /(show|list|naam|dikhao|btao|kya kya|detail).*(expense|expenses|kharcha|kharche|kharch)/i.test(q)) {
+            const targetArr = askToday
+                ? expensesArr.filter(e => (e.created_at || "").startsWith(todayStr))
+                : expensesArr;
+            if (targetArr.length === 0) return "There are no expenses to show right now.";
+            return "Here are your " + (askToday ? "today's" : "all") + " expenses: " + targetArr.map(e => (e.name || e.category || "-") + " (" + formatMoney(e.amount) + ")").join(", ") + ".";
+        }
+
+        const targetArr = askToday
+            ? expensesArr.filter(e => (e.created_at || "").startsWith(todayStr))
+            : expensesArr;
+        const total = targetArr.reduce((s, e) => s + (Number(e.amount) || 0), 0);
+        const len = targetArr.length;
+
+        // COUNT expenses
+        if (/(kitna|count|number|total|kitne|kitni)/i.test(q)) {
+            return "You have " + len + " expense" + (len === 1 ? "" : "s") + (askToday ? " today" : "") + ".";
+        }
+
+        if (len === 0) {
+            return (askToday ? "Today's" : "Total") + " expenses are " + formatMoney(0) + ".";
+        }
+        if (len === 1) {
+            const exp = targetArr[0];
+            return (askToday ? "Today's" : "Total") + " expense: " + formatMoney(exp.amount) + " via " + (exp.payment_method || "Cash") + " for " + (exp.name || exp.category || "unknown") + ".";
+        }
+        return (askToday ? "Today's" : "Total") + " expenses: " + len + " entries totaling " + formatMoney(total) + ".";
+    }
+
+    return null;
+}
+
+function profitHandler(q, data) {
+    const { salesArr, purchasesArr, expensesArr, todayStr } = data;
+    const askToday = /(aj|aaj|today|abhi|ab|is din)/i.test(q);
+
+    if (/(profit|munafa|kamaya|bachat|fida|nafa|loss|nuksan|ghatan)/i.test(q)) {
+        let sVal = 0, pVal = 0, eVal = 0;
+        if (askToday) {
+            sVal = salesArr.filter(s => (s.created_at || "").startsWith(todayStr)).reduce((s, sale) => s + (Number(sale.total) || 0), 0);
+            pVal = purchasesArr.filter(p => (p.created_at || "").startsWith(todayStr)).reduce((s, p) => s + (Number(p.total) || 0), 0);
+            eVal = expensesArr.filter(e => (e.created_at || "").startsWith(todayStr)).reduce((s, e) => s + (Number(e.amount) || 0), 0);
+        } else {
+            sVal = salesArr.reduce((s, sale) => s + (Number(sale.total) || 0), 0);
+            pVal = purchasesArr.reduce((s, p) => s + (Number(p.total) || 0), 0);
+            eVal = expensesArr.reduce((s, e) => s + (Number(e.amount) || 0), 0);
+        }
+        const netProfit = sVal - pVal - eVal;
+        if (netProfit < 0) {
+            const topExpense = expensesArr.sort((a, b) => (Number(b.amount) || 0) - (Number(a.amount) || 0))[0];
+            return "You have a LOSS of " + formatMoney(Math.abs(netProfit)) + (askToday ? " today" : "") + ". Major expenses were: " + (topExpense ? (topExpense.name || topExpense.category || "-") : "none") + ".";
+        }
+        return (askToday ? "Today's" : "Total") + " net profit is " + formatMoney(netProfit) + ".";
+    }
+
+    return null;
+}
+
+function reportsHandler(q, data) {
+    const { salesArr, purchasesArr, expensesArr, itemsArr, todayStr } = data;
+
+    if (/(daily summary|daily report|aaj ka report|aaj ki report)/i.test(q)) {
+        const todaySales = salesArr.filter(s => (s.created_at || "").startsWith(todayStr)).reduce((s, sale) => s + (Number(sale.total) || 0), 0);
+        const todayPurch = purchasesArr.filter(p => (p.created_at || "").startsWith(todayStr)).reduce((s, p) => s + (Number(p.total) || 0), 0);
+        const todayExp = expensesArr.filter(e => (e.created_at || "").startsWith(todayStr)).reduce((s, e) => s + (Number(e.amount) || 0), 0);
+        return "Daily Summary - Sales: " + formatMoney(todaySales) + ", Purchases: " + formatMoney(todayPurch) + ", Expenses: " + formatMoney(todayExp) + ".";
+    }
+
+    if (/(monthly analytics|monthly report|mahina|monthly)/i.test(q)) {
+        const thisMonth = new Date().getMonth();
+        const monthSales = salesArr.filter(s => new Date(s.created_at).getMonth() === thisMonth).reduce((s, sale) => s + (Number(sale.total) || 0), 0);
+        const monthExp = expensesArr.filter(e => new Date(e.created_at).getMonth() === thisMonth).reduce((s, e) => s + (Number(e.amount) || 0), 0);
+        return "Monthly Analytics - Sales: " + formatMoney(monthSales) + ", Expenses: " + formatMoney(monthExp) + ".";
+    }
+
+    if (/(yearly analytics|yearly report|saal|saalana|yearly)/i.test(q)) {
+        const thisYear = new Date().getFullYear();
+        const yearSales = salesArr.filter(s => new Date(s.created_at).getFullYear() === thisYear).reduce((s, sale) => s + (Number(sale.total) || 0), 0);
+        const yearExp = expensesArr.filter(e => new Date(e.created_at).getFullYear() === thisYear).reduce((s, e) => s + (Number(e.amount) || 0), 0);
+        return "Yearly Analytics - Sales: " + formatMoney(yearSales) + ", Expenses: " + formatMoney(yearExp) + ".";
+    }
+
+    if (/(all time|all-time|kul|mukammal|total business)/i.test(q)) {
+        const allSales = salesArr.reduce((s, sale) => s + (Number(sale.total) || 0), 0);
+        const allPurch = purchasesArr.reduce((s, p) => s + (Number(p.total) || 0), 0);
+        const allExp = expensesArr.reduce((s, e) => s + (Number(e.amount) || 0), 0);
+        return "All-Time - Sales: " + formatMoney(allSales) + ", Purchases: " + formatMoney(allPurch) + ", Expenses: " + formatMoney(allExp) + ", Net: " + formatMoney(allSales - allPurch - allExp) + ".";
+    }
+
+    return null;
+}
+
+async function processChatQuery(query) {
+    const q = query.toLowerCase().trim();
+
+    // --- GREETINGS ---
+    if (/^(hi|hello|hey|salam|assalam|good morning|good evening|good afternoon|kaise ho|kya haal|assalam o alaikum|walaikum)/i.test(q)) {
+        return "Hello! How can I help you manage your business today?";
+    }
+
+    try {
+        const [items, sales, purchases, expenses, parties, saleReturns, purchaseReturns, payments] = await Promise.all([
+            apiReady("getItems") ? window.electronAPI.getItems() : [],
+            apiReady("getSales") ? window.electronAPI.getSales() : [],
+            apiReady("getPurchases") ? window.electronAPI.getPurchases() : [],
+            apiReady("getExpenses") ? window.electronAPI.getExpenses() : [],
+            apiReady("getParties") ? window.electronAPI.getParties() : [],
+            apiReady("getSaleReturns") ? window.electronAPI.getSaleReturns() : [],
+            apiReady("getPurchaseReturns") ? window.electronAPI.getPurchaseReturns() : [],
+            apiReady("getPayments") ? window.electronAPI.getPayments() : []
+        ]);
+
+        const itemsArr = Array.isArray(items) ? items : [];
+        const salesArr = Array.isArray(sales) ? sales : [];
+        const purchasesArr = Array.isArray(purchases) ? purchases : [];
+        const expensesArr = Array.isArray(expenses) ? expenses : [];
+        const partiesArr = Array.isArray(parties) ? parties : [];
+        const saleReturnsArr = Array.isArray(saleReturns) ? saleReturns : [];
+        const purchaseReturnsArr = Array.isArray(purchaseReturns) ? purchaseReturns : [];
+        const paymentsArr = Array.isArray(payments) ? payments : [];
+
+        const today = new Date();
+        const todayStr = today.toISOString().slice(0, 10);
+
+        const data = { itemsArr, salesArr, purchasesArr, expensesArr, partiesArr, saleReturnsArr, purchaseReturnsArr, paymentsArr, todayStr };
+
+        // ============================================
+        // MODULAR HANDLER PIPELINE (strict order)
+        // ============================================
+
+        // 1. Dashboard & Financials
+        let result = dashboardHandler(q, data);
+        if (result) return result;
+
+        // 2. Alerts (Low Stock & Expiry)
+        result = alertsHandler(q, data);
+        if (result) return result;
+
+        // 3. Parties (Customers & Suppliers)
+        result = partiesHandler(q, data);
+        if (result) return result;
+
+        // 4. Items & Inventory
+        result = itemsHandler(q, data);
+        if (result) return result;
+
+        // 5. Sales & Sales Returns
+        result = salesHandler(q, data);
+        if (result) return result;
+
+        // 6. Purchases & Purchase Returns
+        result = purchasesHandler(q, data);
+        if (result) return result;
+
+        // 7. Expenses
+        result = expensesHandler(q, data);
+        if (result) return result;
+
+        // 8. Profit & Loss
+        result = profitHandler(q, data);
+        if (result) return result;
+
+        // 9. Reports & Analytics
+        result = reportsHandler(q, data);
+        if (result) return result;
+
+        // --- FALLBACK ---
+        return "I can answer questions about sales, purchases, returns, expenses, profits, stock, suppliers, customers, and reports. Try asking: 'Aaj ka sale kya hai?', 'Suppliers kaun hain?', 'Low stock kitna hai?', ya 'Coca Cola ka stock btao'.";
+
+    } catch (error) {
+        console.error("Chatbot error:", error);
+        return "Sorry, I encountered an error while fetching data. Please try again.";
+    }
+}

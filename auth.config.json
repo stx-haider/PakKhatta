@@ -1,0 +1,25 @@
+{
+  "_readme": [
+    "PakKhatta OTP/SMS configuration.",
+    "provider options: 'console' | 'twilio' | 'webhook'",
+    "'console' = DEV/TEST ONLY: writes OTP to otp-outbox.log (no internet needed).",
+    "PRODUCTION: set provider to 'twilio' and provide credentials via environment variables TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_FROM (recommended) or fill the twilio block below.",
+    "'webhook' posts {phone, code} JSON to webhook_url - use with any local SMS gateway.",
+    "Internet is required ONLY when sending OTPs. Everything else stays offline."
+  ],
+  "provider": "console",
+  "cooldown_seconds": 60,
+  "otp_ttl_minutes": 5,
+  "max_attempts_per_otp": 5,
+  "hourly_send_limit": 5,
+  "daily_send_limit": 20,
+  "session_days": 30,
+  "verify_token_minutes": 10,
+  "min_password_length": 6,
+  "twilio": {
+    "account_sid": "",
+    "auth_token": "",
+    "from_number": ""
+  },
+  "webhook_url": ""
+}

@@ -1,0 +1,11 @@
+{
+  "activeId": 1,
+  "nextId": 2,
+  "businesses": [
+    {
+      "id": 1,
+      "name": "My Business",
+      "file": "pakkhatta.db"
+    }
+  ]
+}

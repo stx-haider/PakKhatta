@@ -1,0 +1,66 @@
+{
+  "name": "pakkhatta",
+  "version": "1.0.0",
+  "description": "PakKhatta - Inventory & Accounting System",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:win": "electron-builder --win --x64"
+  },
+  "keywords": [
+    "accounting",
+    "inventory",
+    "pos",
+    "pakkhatta"
+  ],
+  "author": "PakKhatta",
+  "license": "ISC",
+  "dependencies": {
+    "sql.js": "^1.8.0"
+  },
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.pakkhatta.app",
+    "productName": "PakKhatta",
+    "directories": {
+      "output": "dist"
+    },
+    "asar": true,
+    "asarUnpack": [
+      "**/node_modules/sql.js/**/*"
+    ],
+    "files": [
+      "**/*",
+      "!**/*.db",
+      "!**/*.db-*",
+      "!**/*.sqlite",
+      "!**/*.sqlite-*",
+      "!**/*.sqlite3",
+      "!**/*.sqlite3-*",
+      "!**/*.log",
+      "!**/*.log.*",
+      "!businesses.json",
+      "!auth-session.json",
+      "!dist/**",
+      "!**/.cache/**",
+      "!**/cache/**",
+      "!**/Cache/**"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "icon.ico"
+    },
+    "nsis": {
+      "include": "installer.nsh",
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "runAfterFinish": true
+    }
+  }
+}
